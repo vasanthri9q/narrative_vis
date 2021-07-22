@@ -1,11 +1,13 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
+<script type="text/javascript" src="d3/d3.v3.js"></script>
 <body>
 <svg width=150 height=300>
 </svg>
 <script>
-xs = d3.scaleLinear().domain(xdomain).range(xrange);
-ys = d3.scaleLinear().domain(ydomain).range(yrange);
-cs = d3.scaleLinear().domain(cdomain).range(crange);
+var xs = d3.scaleLinear().domain(xdomain).range(xrange);
+var ys = d3.scaleLinear().domain(ydomain).range(yrange);
+var cs = d3.scaleLinear().domain(cdomain).range(crange);
 d3.select('svg')
   .selectAll('rect')
   .data([4,8,15,16,23,42])
