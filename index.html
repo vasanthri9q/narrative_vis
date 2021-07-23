@@ -2,15 +2,15 @@
 <script src='https://d3js.org/d3.v5.min.js'></script>
 <style> circle {fill: lightblue; stroke: black;} </style>
 <body onload='init()'>
-<svg width=300 height=300>
+<svg width=1000 height=1000>
 </svg>
 <script>
 async function init() {
 data = await d3.csv("https://flunky.github.io/cars2017.csv")
-var x = d3.scaleLog().base(10).domain([10,150]).range([0, 200])
-var y = d3.scaleLog().base(10).domain([10,150]).range([200, 0])
-var xs = d3.scaleLinear().domain([10,100]).range([0,200]);
-var ys = d3.scaleLinear().domain([10,100]).range([200,0])
+var x = d3.scaleLog().base(10).domain([10,150]).range([0, 900])
+var y = d3.scaleLog().base(10).domain([10,150]).range([900, 0])
+var xs = d3.scaleLinear().domain([10,100]).range([0,900]);
+var ys = d3.scaleLinear().domain([10,100]).range([900,0])
 d3.select("svg").append("g")
 .attr("transform","translate(50,50)")
 .selectAll('circle')
