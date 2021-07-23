@@ -2,16 +2,16 @@
 <script src='https://d3js.org/d3.v5.min.js'></script>
 <style> circle {fill: lightblue; stroke: black;} </style>
 <body onload='init()'>
-<svg width=1000 height=1000>
+<svg width=800 height=800>
 </svg>
 <div id="div_template"></div>
 <script>
 async function init() {
 data = await d3.csv("https://flunky.github.io/cars2017.csv")
-var x = d3.scaleLog().base(10).domain([10,150]).range([0, 900])
-var y = d3.scaleLog().base(10).domain([10,150]).range([900, 0])
-var xs = d3.scaleLinear().domain([10,100]).range([0,900]);
-var ys = d3.scaleLinear().domain([10,100]).range([900,0])
+var x = d3.scaleLog().base(10).domain([10,150]).range([0, 700])
+var y = d3.scaleLog().base(10).domain([10,150]).range([700, 0])
+var xs = d3.scaleLinear().domain([10,100]).range([0,700]);
+var ys = d3.scaleLinear().domain([10,100]).range([700,0])
 var Tooltip = d3.select("#div_template")
     .append("div")
     .style("opacity", 0)
@@ -32,7 +32,7 @@ var Tooltip = d3.select("#div_template")
   }
   var mousemove = function(d) {
     Tooltip
-      .html("Make: " + d.Make + "Fuel: " +d.Fuel)
+      .html(d.Make + " - " +d.Fuel)
       .style("left", (d3.mouse(this)[0]+70) + "px")
       .style("top", (d3.mouse(this)[1]) + "px")
   }
@@ -54,7 +54,7 @@ d3.select("svg").append("g")
 .on("mousemove", mousemove)
 .on("mouseleave", mouseleave)
 d3.select("svg").append("g").attr("transform","translate(50,50)").call(d3.axisLeft(ys).tickValues([10,20,50,100]).tickFormat(d3.format("~s")))
-d3.select("svg").append("g").attr("transform","translate(50,950)").call(d3.axisBottom(xs).tickValues([10,20,50,100]).tickFormat(d3.format("~s")))
+d3.select("svg").append("g").attr("transform","translate(50,750)").call(d3.axisBottom(xs).tickValues([10,20,50,100]).tickFormat(d3.format("~s")))
 }
 </script>
 </body>
