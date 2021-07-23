@@ -4,6 +4,7 @@
 <body onload='init()'>
 <svg width=1000 height=1000>
 </svg>
+<div id="div_template"></div>
 <script>
 async function init() {
 data = await d3.csv("https://flunky.github.io/cars2017.csv")
@@ -11,6 +12,37 @@ var x = d3.scaleLog().base(10).domain([10,150]).range([0, 900])
 var y = d3.scaleLog().base(10).domain([10,150]).range([900, 0])
 var xs = d3.scaleLinear().domain([10,100]).range([0,900]);
 var ys = d3.scaleLinear().domain([10,100]).range([900,0])
+var Tooltip = d3.select("#div_template")
+    .append("div")
+    .style("opacity", 0)
+    .attr("class", "tooltip")
+    .style("background-color", "white")
+    .style("border", "solid")
+    .style("border-width", "2px")
+    .style("border-radius", "5px")
+    .style("padding", "5px")
+
+  // Three function that change the tooltip when user hover / move / leave a cell
+  var mouseover = function(d) {
+    Tooltip
+      .style("opacity", 1)
+    d3.select(this)
+      .style("stroke", "black")
+      .style("opacity", 1)
+  }
+  var mousemove = function(d) {
+    Tooltip
+      .html("The exact value of<br>this cell is: " + d.value)
+      .style("left", (d3.mouse(this)[0]+70) + "px")
+      .style("top", (d3.mouse(this)[1]) + "px")
+  }
+  var mouseleave = function(d) {
+    Tooltip
+      .style("opacity", 0)
+    d3.select(this)
+      .style("stroke", "none")
+      .style("opacity", 0.8)
+  }
 d3.select("svg").append("g")
 .attr("transform","translate(50,50)")
 .selectAll('circle')
@@ -18,6 +50,9 @@ d3.select("svg").append("g")
 .attr("cx", function(d,i) { return x(d.AverageCityMPG); })
 .attr("cy", function(d,i) { return y(d.AverageHighwayMPG); })
 .attr("r", function(d,i) { return +(d.EngineCylinders)+2; })
+.on("mouseover", mouseover)
+.on("mousemove", mousemove)
+.on("mouseleave", mouseleave)
 d3.select("svg").append("g").attr("transform","translate(50,50)").call(d3.axisLeft(ys).tickValues([10,20,50,100]).tickFormat(d3.format("~s")))
 d3.select("svg").append("g").attr("transform","translate(50,950)").call(d3.axisBottom(xs).tickValues([10,20,50,100]).tickFormat(d3.format("~s")))
 }
