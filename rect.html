@@ -1,29 +1,28 @@
 <html>
 <script src='https://d3js.org/d3.v5.min.js'></script>
-<style> circle {fill: lightblue; stroke: black;} </style>
-<body onload='init()'>
-<svg width=800 height=800>
+<style> rect {fill: lightblue; stroke: black; }</style>
+<body>
+<svg width=300 height=300>
 </svg>
 <script>
-var data =[36,31,24,19,15,13]
-var x = d3.scaleBand().domain([2,3,4,6,8,10,12]).range([0,700])
-var y = d3.scaleLinear().domain([0,50]).range([700, 0])
-var xs = d3.scaleBand().domain([2,3,4,6,8,10,12]).range([0,700]);
-var ys = d3.scaleLinear().domain([0,50]).range([700,0]);
-var hs = d3.scaleLinear().domain([0,50]).range([0,700]);
-d3.select('svg').attr("width",800) 
-.attr("height",800).append("g")
+var data = [36,31,24,19,15,13,12];
+var width = 200
+var height = 200
+var x = d3.scaleBand().domain([2,3,4,6,8,10,12]).range([0,200]);
+var y = d3.scaleLinear().domain([0,42]).range([200,0])
+var xs = d3.scaleBand().domain([2,3,4,6,8,10,12]).range([0,200]);
+var ys = d3.scaleLinear().domain([0,42]).range([200,0]);
+var hs = d3.scaleLinear().domain([0,42]).range([0,200]);
+d3.select("svg").attr("width",300) 
+.attr("height",300).append("g")
 .attr("transform","translate(50,50)")
-  .selectAll('rect')
-  .data(data)
-  .enter()
-  .append('rect')
-    .attr('x',function(d) {return xs(i);})
-    .attr('y',function(d) {return y(d);})
-    .attr('width', 33.3333)
-    .attr('height',function(d,i) {return hs(d);})
+.selectAll('rect').data([[36,31,24,19,15,13,12]]).enter().append('rect')
+.attr('x',function(d,i) {return xs(i);})
+.attr('y',function(d,i) {return ys(d);})
+.attr('width', 33.3333)
+.attr('height',function(d,i) {return hs(d);})
 d3.select("svg").append("g").attr("transform","translate(50,50)").call(d3.axisLeft(y))
-d3.select("svg").append("g").attr("transform","translate(50,750)").call(d3.axisBottom(x))
+d3.select("svg").append("g").attr("transform","translate(50,250)") .call(d3.axisBottom(x))
 </script>
 </body>
 </html>
