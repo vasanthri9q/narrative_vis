@@ -22,14 +22,14 @@ d3.select("svg1").append("g").attr("transform","translate(50,50)").call(d3.axisL
 d3.select("svg1").append("g").attr("transform","translate(50,250)") .call(d3.axisBottom(x))
 d3.select("svg2").attr("width",300) 
 .attr("height",300).append("g")
-.attr("transform","translate(50,50)")
+.attr("transform","translate(350,350)")
 .selectAll('rect').data([36,31,24,19,15,13,12]).enter().append('rect')
 .attr('x',function(d,i) {return xs(i);})
 .attr('y',function(d,i) {return ys(d);})
 .attr('width', 28.57)
 .attr('height',function(d,i) {return hs(d);})
-d3.select("svg2").append("g").attr("transform","translate(50,50)").call(d3.axisLeft(y))
-d3.select("svg2").append("g").attr("transform","translate(50,250)") .call(d3.axisBottom(x))
+d3.select("svg2").append("g").attr("transform","translate(350,350)").call(d3.axisLeft(y))
+d3.select("svg2").append("g").attr("transform","translate(350,600)") .call(d3.axisBottom(x))
 </script>
 </body>
 </html>
