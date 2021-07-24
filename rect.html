@@ -5,18 +5,12 @@
 <svg width=800 height=800>
 </svg>
 <script>
-async function init() {
-    data = await d3.csv("https://flunky.github.io/cars2017.csv")
-    filtered_data = data.filter(function(d){ return d.Fuel == "Gasoline" })
-var Avgmpg = d3.nest()
-  .key(function(d) { return d.EngineCylinders; })
-  .rollup(function(v) { return d3.mean(v, function(d) { return d.AverageCityMPG; }); })
-  .entries(filtered_data);
-var x = d3.scaleBand().domain([4,6,8]).range([0,700])
+var data =[36,31,24,19,15,13]
+var x = d3.scaleBand().domain([2,3,4,6,8,10,12]).range([0,700])
 var y = d3.scaleLinear().domain([0,50]).range([700, 0])
-var xs = d3.scaleBand().domain([4,6,8]).range([0,700]);
+var xs = d3.scaleBand().domain([2,3,4,6,8,10,12]).range([0,700]);
 var ys = d3.scaleLinear().domain([0,50]).range([700,0]);
-var hs = d3.scaleLinear().domain([0,52]).range([0,700]);
+var hs = d3.scaleLinear().domain([0,50]).range([0,700]);
 d3.select('svg').attr("width",800) 
 .attr("height",800).append("g")
 .attr("transform","translate(50,50)")
@@ -24,13 +18,12 @@ d3.select('svg').attr("width",800)
   .data(Avgmpg)
   .enter()
   .append('rect')
-    .attr('x',function(d) {return xs(d.key);})
-    .attr('y',function(d) {return y(d.values);})
+    .attr('x',function(d) {return xs(i);})
+    .attr('y',function(d) {return y(d);})
     .attr('width', 33.3333)
-    .attr('height',function(d,i) {return hs(d.values);})
+    .attr('height',function(d,i) {return hs(d);})
 d3.select("svg").append("g").attr("transform","translate(50,50)").call(d3.axisLeft(y))
 d3.select("svg").append("g").attr("transform","translate(50,750)").call(d3.axisBottom(x))
-}
 </script>
 </body>
 </html>
