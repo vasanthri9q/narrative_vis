@@ -1,28 +1,36 @@
 <html>
 <script src='https://d3js.org/d3.v5.min.js'></script>
-<style> rect {fill: lightblue; stroke: black; }</style>
-<body>
-<svg width=300 height=300>
+<style> circle {fill: lightblue; stroke: black;} </style>
+<body onload='init()'>
+<svg width=800 height=800>
 </svg>
 <script>
-var data = [4,8,15,16,23,42];
-var width = 200
-var height = 200
-var x = d3.scaleBand().domain([0,1,2,3,4,5]).range([0,200]);
-var y = d3.scaleLinear().domain([0,42]).range([200,0])
-var xs = d3.scaleBand().domain([0,1,2,3,4,5]).range([0,200]);
-var ys = d3.scaleLinear().domain([0,42]).range([200,0]);
-var hs = d3.scaleLinear().domain([0,42]).range([0,200]);
-d3.select("svg").attr("width",300) 
-.attr("height",300).append("g")
+async function init() {
+    data = await d3.csv("https://flunky.github.io/cars2017.csv")
+    filtered_data = data.filter(function(d){ return d.Fuel == "Gasoline" })
+var Avgmpg = d3.nest()
+  .key(function(d) { return d.EngineCylinders; })
+  .rollup(function(v) { return d3.mean(v, function(d) { return d.AverageCityMPG; }); })
+  .entries(filtered_data);
+var x = d3.scaleBand().domain([4,6,8]).range([0,700])
+var y = d3.scaleLinear().domain([0,50]).range([700, 0])
+var xs = d3.scaleBand().domain([4,6,8]).range([0,700]);
+var ys = d3.scaleLinear().domain([0,50]).range([700,0]);
+var hs = d3.scaleLinear().domain([0,52]).range([0,700]);
+d3.select('svg').attr("width",800) 
+.attr("height",800).append("g")
 .attr("transform","translate(50,50)")
-.selectAll('rect').data([4,8,15,16,23,42]).enter().append('rect')
-.attr('x',function(d,i) {return xs(i);})
-.attr('y',function(d,i) {return ys(d);})
-.attr('width', 33.3333)
-.attr('height',function(d,i) {return hs(d);})
+  .selectAll('rect')
+  .data(Avgmpg)
+  .enter()
+  .append('rect')
+    .attr('x',function(d) {return xs(d.key);})
+    .attr('y',function(d) {return y(d.values);})
+    .attr('width', 33.3333)
+    .attr('height',function(d,i) {return hs(d.values);})
 d3.select("svg").append("g").attr("transform","translate(50,50)").call(d3.axisLeft(y))
-d3.select("svg").append("g").attr("transform","translate(50,250)") .call(d3.axisBottom(x))
+d3.select("svg").append("g").attr("transform","translate(50,750)").call(d3.axisBottom(x))
+}
 </script>
 </body>
 </html>
