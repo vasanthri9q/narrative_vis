@@ -1,0 +1,31 @@
+<html>
+<script src='https://d3js.org/d3.v5.min.js'></script>
+<style> circle {fill: lightblue; stroke: black;} </style>
+<body onload='init()'>
+<svg width=800 height=800>
+</svg>
+<div id="div_template"></div>
+<script>
+async function init() {
+await d3.csv("https://flunky.github.io/cars2017.csv" , function(csv)
+    {
+    csv = csv.filter(function(row) {
+        return row['Fuel'] == 'Gasoline';
+    })
+var x = d3.scaleLog().base(10).domain([10,150]).range([0, 700])
+var y = d3.scaleLog().base(10).domain([10,150]).range([700, 0])
+var xs = d3.scaleLinear().domain([10,100]).range([0,700]);
+var ys = d3.scaleLinear().domain([10,100]).range([700,0])
+d3.select("svg").append("g")
+.attr("transform","translate(50,50)")
+.selectAll('circle')
+.data(csv).enter().append('circle')
+.attr("cx", function(d,i) { return x(d.AverageCityMPG); })
+.attr("cy", function(d,i) { return y(d.AverageHighwayMPG); })
+.attr("r", function(d,i) { return +(d.EngineCylinders)+2; })
+d3.select("svg").append("g").attr("transform","translate(50,50)").call(d3.axisLeft(ys).tickValues([10,20,50,100]).tickFormat(d3.format("~s")))
+d3.select("svg").append("g").attr("transform","translate(50,750)").call(d3.axisBottom(xs).tickValues([10,20,50,100]).tickFormat(d3.format("~s")))
+}
+</script>
+</body>
+</html>
