@@ -1,29 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<script type="text/javascript" src="d3/d3.v3.js"></script>
-<body>
-<svg width=150 height=300>
+<html>
+<script src='https://d3js.org/d3.v5.min.js'></script>
+<style> circle {fill: lightblue; stroke: black;} </style>
+<body onload='init()'>
+<svg width=800 height=800>
 </svg>
 <script>
-xdomain = [0,42];
-xrange = [0,100];
-ydomain = [0,5];
-yrange = [100,250];
-cdomain = [0,255];
-crange = ["blue","orange"];
-var xs = d3.scaleLinear().domain(xdomain).range(xrange);
-var ys = d3.scaleLinear().domain(ydomain).range(yrange);
-var cs = d3.scaleLinear().domain(cdomain).range(crange);
-d3.select('svg')
+async function init() {
+    data = await d3.csv("https://flunky.github.io/cars2017.csv")
+    filtered_data = data.filter(function(d){ return d.Fuel == "Gasoline" })
+var Avgmpg = d3.nest()
+  .key(function(d) { return d.EngineCylinders; })
+  .rollup(function(v) { return d3.mean(v, function(d) { return d.AverageCityMPG; }); })
+  .entries(filtered_data);
+var x = d3.scaleBand().domain([4,6,8]).range([0,700])
+var y = d3.scaleLinear().domain([0,50]).range([700, 0])
+d3.select('svg').append("g")
+.attr("transform","translate(50,50)")
   .selectAll('rect')
-  .data([4,8,15,16,23,42])
+  .data(Avgmpg)
   .enter()
   .append('rect')
-    .attr('x',20)
-    .attr('y',function(d,i) {return ys(i);})
-    .attr('width',function(d,i) {return xs(d);})
-    .attr('height',10)
-    .style('fill',function(d,i) {return cs(d);});
+    .attr('x',function(d) {return x(d.key);})
+    .attr('y',function(d) {return y(d.values);})
+    .attr('width',x.bandwidth())
+    .attr('height',function(d) { return height - y(d.Values); })
+d3.select("svg").append("g").attr("transform","translate(50,50)").call(d3.axisLeft(y))
+d3.select("svg").append("g").attr("transform","translate(50,750)").call(d3.axisBottom(x))
+}
 </script>
 </body>
 </html>
