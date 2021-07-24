@@ -4,10 +4,9 @@
 <body onload='init()'>
 <svg width=800 height=800>
 </svg>
-<div id="div_template"></div>
 <script>
 async function init() {
-await d3.csv("https://flunky.github.io/cars2017.csv" , function(csv)
+data = await d3.csv("https://flunky.github.io/cars2017.csv" , function(csv)
     {
     csv = csv.filter(function(row) {
         return row['Fuel'] == 'Gasoline';
@@ -19,7 +18,7 @@ var ys = d3.scaleLinear().domain([10,100]).range([700,0])
 d3.select("svg").append("g")
 .attr("transform","translate(50,50)")
 .selectAll('circle')
-.data(csv).enter().append('circle')
+.data(data).enter().append('circle')
 .attr("cx", function(d,i) { return x(d.AverageCityMPG); })
 .attr("cy", function(d,i) { return y(d.AverageHighwayMPG); })
 .attr("r", function(d,i) { return +(d.EngineCylinders)+2; })
