@@ -6,11 +6,7 @@
 </svg>
 <script>
 async function init() {
-await d3.csv("https://flunky.github.io/cars2017.csv" , function(csv)
-    {
-    csv = csv.filter(function(row) {
-        return row['Fuel'] == 'Gasoline';
-    }}))
+await d3.csv("https://flunky.github.io/cars2017.csv" , function(csv) { csv = csv.filter(function(row) { return row['Fuel'] == 'Gasoline';})})
 var x = d3.scaleLog().base(10).domain([10,150]).range([0, 700])
 var y = d3.scaleLog().base(10).domain([10,150]).range([700, 0])
 var xs = d3.scaleLinear().domain([10,100]).range([0,700]);
