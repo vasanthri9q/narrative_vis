@@ -5,6 +5,12 @@
 <svg width=150 height=300>
 </svg>
 <script>
+xdomain = [0,42];
+xrange = [0,100];
+ydomain = [0,5];
+yrange = [100,250];
+cdomain = [0,255];
+crange = ["blue","orange"];
 var xs = d3.scaleLinear().domain(xdomain).range(xrange);
 var ys = d3.scaleLinear().domain(ydomain).range(yrange);
 var cs = d3.scaleLinear().domain(cdomain).range(crange);
