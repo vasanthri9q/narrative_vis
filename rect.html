@@ -6,6 +6,13 @@
 </svg>
 <script>
 var data = [4,8,15,16,23,42];
+var width = 200
+var height = 200
+var x = d3.scaleBand().domain([0,1,2,3,4,5]).range([0,200]);
+var y = d3.scaleLinear().domain([0,42]).range([200,0])
+var xs = d3.scaleBand().domain([0,1,2,3,4,5]).range([0,200]);
+var ys = d3.scaleLinear().domain([0,42]).range([200,0]);
+var hs = d3.scaleLinear().domain([0,42]).range([0,200]);
 d3.select("svg").attr("width",300) 
 .attr("height",300).append("g")
 .attr("transform","translate(50,50)")
