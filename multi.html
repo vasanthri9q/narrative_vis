@@ -2,25 +2,16 @@
 <script src='https://d3js.org/d3.v5.min.js'></script>
 <style> rect {fill: lightblue; stroke: black; }</style>
 <body>
-<svg width=300 height=300, id="svg1"></svg>
+<svg width=300 height=300></svg>
 <header>
     <div class="container">
         <div class="row">
-            <div class="col-md-2">
-                <img src="resources/d3logo.png">
-            </div>
             <div class="col-md-10">
-                <h1 class="logo">D3 Examples</h1>
-                <h4>Richard Dalton</h4>
+                <h1 class="logo">Dashboard Assignment</h1>
+                <h4>Fuel Plot</h4>
                 <div class="btn-group btn-group-md" role="group" aria-label="...">
                     <a href="index.html" class="btn btn-default" role="button">Home</a>
-                    <a href="svg.html" class="btn btn-default" role="button">SVG</a>
-                    <a href="barChart.html" class="btn btn-default" role="button">Bar</a>
-                    <a href="pieChart.html" class="btn btn-default" role="button">Pie</a>
-                    <a href="bubbleChart.html" class="btn btn-default" role="button">Bubble</a>
-                    <a href="force.html" class="btn btn-default" role="button">Force</a>
-                    <a href="globe.html" class="btn btn-default" role="button">Globe</a>
-                    <a href="http://www.d3js.org" class="btn btn-default" role="button">D3.js</a>
+                    <a href="rect.html" class="btn btn-default" role="button">Cylinders</a>
                 </div>
             </div>
         </div>
@@ -40,8 +31,8 @@ d3.select("svg1").attr("width",300)
 .attr('y',function(d,i) {return ys(d);})
 .attr('width', 28.57)
 .attr('height',function(d,i) {return hs(d);})
-d3.select("svg1").append("g").attr("transform","translate(50,50)").call(d3.axisLeft(y))
-d3.select("svg1").append("g").attr("transform","translate(50,250)") .call(d3.axisBottom(x))
+d3.select("svg").append("g").attr("transform","translate(50,50)").call(d3.axisLeft(y))
+d3.select("svg").append("g").attr("transform","translate(50,250)") .call(d3.axisBottom(x))
 </script>
 </body>
 </html>
