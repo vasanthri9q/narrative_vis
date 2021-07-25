@@ -7,10 +7,10 @@
         <div class="row">
             <div class="col-md-2">
                 <h1 class="logo">Dashboard Assignment</h1>
-                <h4>Fuel Plot</h4>
+                <h4>Efficiency</h4>
                 <div class="btn-group btn-group-md" role="group" aria-label="...">
                     <a href="index.html" class="btn btn-default" role="button">Home</a>
-                    <a href="rect.html" class="btn btn-default" role="button">Cylinders</a>
+                    <a href="rect.html" class="btn btn-default" role="button">Next</a>
                 </div>
             </div>
         </div>
@@ -46,7 +46,7 @@ var Tooltip = d3.select("#div_template")
   }
   var mousemove = function(d) {
     Tooltip
-      .html(d.Make + " - " +d.Fuel)
+      .html(d.Make + " - " +d.Fuel + "  Cyl:" +d.EngineCylinders + "  HwyMPG:" + d.AverageHighwayMPG + "   CityMPG:" + d.AverageCityMPG)
       .style("left", (d3.mouse(this)[0]+70) + "px")
       .style("top", (d3.mouse(this)[1]) + "px")
   }
