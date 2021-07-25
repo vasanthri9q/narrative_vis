@@ -3,7 +3,29 @@
 <style> rect {fill: lightblue; stroke: black; }</style>
 <body>
 <svg width=300 height=300, id="svg1"></svg>
-<svg width=300 height=300, id="svg2"></svg>
+<header>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">
+                <img src="resources/d3logo.png">
+            </div>
+            <div class="col-md-10">
+                <h1 class="logo">D3 Examples</h1>
+                <h4>Richard Dalton</h4>
+                <div class="btn-group btn-group-md" role="group" aria-label="...">
+                    <a href="index.html" class="btn btn-default" role="button">Home</a>
+                    <a href="svg.html" class="btn btn-default" role="button">SVG</a>
+                    <a href="barChart.html" class="btn btn-default" role="button">Bar</a>
+                    <a href="pieChart.html" class="btn btn-default" role="button">Pie</a>
+                    <a href="bubbleChart.html" class="btn btn-default" role="button">Bubble</a>
+                    <a href="force.html" class="btn btn-default" role="button">Force</a>
+                    <a href="globe.html" class="btn btn-default" role="button">Globe</a>
+                    <a href="http://www.d3js.org" class="btn btn-default" role="button">D3.js</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
 <script>
 var x = d3.scaleBand().domain([2,3,4,6,8,10,12]).range([0,200]);
 var y = d3.scaleLinear().domain([0,42]).range([200,0])
@@ -20,16 +42,6 @@ d3.select("svg1").attr("width",300)
 .attr('height',function(d,i) {return hs(d);})
 d3.select("svg1").append("g").attr("transform","translate(50,50)").call(d3.axisLeft(y))
 d3.select("svg1").append("g").attr("transform","translate(50,250)") .call(d3.axisBottom(x))
-d3.select("svg2").attr("width",300) 
-.attr("height",300).append("g")
-.attr("transform","translate(350,350)")
-.selectAll('rect').data([36,31,24,19,15,13,12]).enter().append('rect')
-.attr('x',function(d,i) {return xs(i);})
-.attr('y',function(d,i) {return ys(d);})
-.attr('width', 28.57)
-.attr('height',function(d,i) {return hs(d);})
-d3.select("svg2").append("g").attr("transform","translate(350,350)").call(d3.axisLeft(y))
-d3.select("svg2").append("g").attr("transform","translate(350,600)") .call(d3.axisBottom(x))
 </script>
 </body>
 </html>
