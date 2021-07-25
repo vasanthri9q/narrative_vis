@@ -2,7 +2,7 @@
 <script src='https://d3js.org/d3.v5.min.js'></script>
 <style> rect {fill: lightblue; stroke: black; }</style>
 <body>
-<svg width=300 height=300></svg>
+<svg width=800 height=800></svg>
 <header>
     <div class="container">
         <div class="row">
@@ -18,21 +18,21 @@
     </div>
 </header>
 <script>
-var x = d3.scaleBand().domain([2,3,4,6,8,10,12]).range([0,200]);
-var y = d3.scaleLinear().domain([0,42]).range([200,0])
-var xs = d3.scaleBand().domain([0,1,2,3,4,5,6]).range([0,200]);
-var ys = d3.scaleLinear().domain([0,42]).range([200,0]);
-var hs = d3.scaleLinear().domain([0,42]).range([0,200]);
-d3.select("svg1").attr("width",300) 
-.attr("height",300).append("g")
-.attr("transform","translate(50,50)")
+var x = d3.scaleBand().domain([2,3,4,6,8,10,12]).range([0,500]);
+var y = d3.scaleLinear().domain([0,42]).range([500,0])
+var xs = d3.scaleBand().domain([0,1,2,3,4,5,6]).range([0,500]);
+var ys = d3.scaleLinear().domain([0,42]).range([500,0]);
+var hs = d3.scaleLinear().domain([0,42]).range([300,800]);
+d3.select("svg").attr("width",800) 
+.attr("height",800).append("g")
+.attr("transform","translate(50,350)")
 .selectAll('rect').data([36,31,24,19,15,13,12]).enter().append('rect')
 .attr('x',function(d,i) {return xs(i);})
 .attr('y',function(d,i) {return ys(d);})
-.attr('width', 28.57)
+.attr('width', 71.42)
 .attr('height',function(d,i) {return hs(d);})
-d3.select("svg").append("g").attr("transform","translate(50,50)").call(d3.axisLeft(y))
-d3.select("svg").append("g").attr("transform","translate(50,250)") .call(d3.axisBottom(x))
+d3.select("svg").append("g").attr("transform","translate(50,350)").call(d3.axisLeft(y))
+d3.select("svg").append("g").attr("transform","translate(50,750)") .call(d3.axisBottom(x))
 </script>
 </body>
 </html>
