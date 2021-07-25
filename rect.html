@@ -2,14 +2,60 @@
 <script src='https://d3js.org/d3.v5.min.js'></script>
 <style> rect {fill: lightblue; stroke: black; }</style>
 <body>
+<header>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">
+                <h1 class="logo">Dashboard Assignment</h1>
+                <h4>Comparing Number of Cylinders vs Hwy MPG</h4>
+                <div class="btn-group btn-group-md" role="group" aria-label="...">
+                    <a href="index.html" class="btn btn-default" role="button">Prev</a>
+                    <a href="multi.html" class="btn btn-default" role="button">Next</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
 <svg width=800 height=800>
 </svg>
+<div id="div_template"></div>
 <script>
 var x = d3.scaleBand().domain([2,3,4,6,8,10,12]).range([0,600]);
 var y = d3.scaleLinear().domain([0,42]).range([600,0])
 var xs = d3.scaleBand().domain([0,1,2,3,4,5,6]).range([0,600]);
 var ys = d3.scaleLinear().domain([0,42]).range([600,0]);
 var hs = d3.scaleLinear().domain([0,42]).range([0,600]);
+var Tooltip = d3.select("#div_template")
+    .append("div")
+    .style("opacity", 0)
+    .attr("class", "tooltip")
+    .style("background-color", "white")
+    .style("border", "solid")
+    .style("border-width", "2px")
+    .style("border-radius", "5px")
+    .style("padding", "5px")
+
+  // Three function that change the tooltip when user hover / move / leave a cell
+  var mouseover = function(d) {
+    Tooltip
+      .style("opacity", 1)
+    d3.select(this)
+      .style("stroke", "black")
+      .style("opacity", 1)
+  }
+  var mousemove = function(d) {
+    Tooltip
+      .html("HwyMPG:"+d)
+      .style("left", (d3.mouse(this)[0]+70) + "px")
+      .style("top", (d3.mouse(this)[1]) + "px")
+  }
+  var mouseleave = function(d) {
+    Tooltip
+      .style("opacity", 0)
+    d3.select(this)
+      .style("stroke", "none")
+      .style("opacity", 0.8)
+  }
 d3.select("svg").attr("width",800) 
 .attr("height",800).append("g")
 .attr("transform","translate(50,50)")
@@ -18,6 +64,9 @@ d3.select("svg").attr("width",800)
 .attr('y',function(d,i) {return ys(d);})
 .attr('width', 85.71)
 .attr('height',function(d,i) {return hs(d);})
+.on("mouseover", mouseover)
+.on("mousemove", mousemove)
+.on("mouseleave", mouseleave)
 d3.select("svg").append("g").attr("transform","translate(50,50)").call(d3.axisLeft(y))
 d3.select("svg").append("g").attr("transform","translate(50,650)") .call(d3.axisBottom(x))
 </script>
