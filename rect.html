@@ -1,5 +1,6 @@
 <html>
 <script src='https://d3js.org/d3.v5.min.js'></script>
+<script src="https://rawgit.com/susielu/d3-annotation/master/d3-annotation.min.js"></script>
 <style> rect {fill: lightblue; stroke: black; }</style>
 <body>
 <header>
@@ -10,7 +11,7 @@
                 <h4>Comparing Number of Cylinders vs Hwy MPG</h4>
                 <div class="btn-group btn-group-md" role="group" aria-label="...">
                     <a href="index.html" class="btn btn-default" role="button">Prev</a>
-                    <a href="multi.html" class="btn btn-default" role="button">Next</a>
+                    <a href="trend.html" class="btn btn-default" role="button">Next</a>
                 </div>
             </div>
         </div>
@@ -23,8 +24,8 @@
   const annotations = [
   {
     note: {
-      label: "Here is the annotation label",
-      title: "Annotation title"
+      label: "More cylinders reduces MPG",
+      title: "MPG reduces"
     },
     connector: {
       end: "dot",        // Can be none, or arrow or dot
@@ -33,10 +34,10 @@
       endScale: 10     // dot size
     },
     color: ["grey"],
-    x: 40,
-    y: 160,
-    dy: 70,
-    dx: 70
+    x: 540,
+    y: 430,
+    dy: 100,
+    dx: 100
   }
 ]
 var x = d3.scaleBand().domain([2,3,4,6,8,10,12]).range([0,600]);
@@ -64,7 +65,7 @@ var Tooltip = d3.select("#div_template")
   }
   var mousemove = function(d) {
     Tooltip
-      .html("HwyMPG:"+d)
+      .html("Cylinders:"+i   +"HwyMPG:"+d)
       .style("left", (d3.mouse(this)[0]+70) + "px")
       .style("top", (d3.mouse(this)[1]) + "px")
   }
