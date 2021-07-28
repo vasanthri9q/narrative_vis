@@ -8,7 +8,7 @@
         <div class="row">
             <div class="col-md-2">
                 <h1 class="logo">Dashboard Assignment</h1>
-                <h4>Comparing Number of Cylinders vs Hwy MPG</h4>
+                <h4>Comparing Number of Cylinders vs City MPG for Gasoline Cars</h4>
                 <div class="btn-group btn-group-md" role="group" aria-label="...">
                     <a href="index.html" class="btn btn-default" role="button">Prev</a>
                     <a href="trend.html" class="btn btn-default" role="button">Next</a>
@@ -65,7 +65,7 @@ var Tooltip = d3.select("#div_template")
   }
   var mousemove = function(d) {
     Tooltip
-      .html("Cylinders:"+i   +"HwyMPG:"+d)
+      .html("Cylinders:"+i   +"MPG:"+d)
       .style("left", (d3.mouse(this)[0]+70) + "px")
       .style("top", (d3.mouse(this)[1]) + "px")
   }
@@ -90,7 +90,6 @@ d3.select("svg").attr("width",800)
 d3.select("svg").append("g").attr("transform","translate(50,50)").call(d3.axisLeft(y))
 d3.select("svg").append("g").attr("transform","translate(50,650)").call(d3.axisBottom(x))
 d3.select("svg").append("g").attr("transform","translate(50,50)").call(d3.annotation().annotations(annotations))
-
 </script>
 </body>
 </html>
