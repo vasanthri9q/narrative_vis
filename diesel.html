@@ -8,23 +8,23 @@
         <div class="row">
             <div class="col-md-2">
                 <h1 class="logo">Dashboard Assignment</h1>
-                <h4>Comparing Number of Cylinders vs City MPG for Disel Cars</h4>
+                <h4>Comparing Number of Cylinders vs City MPG for Gasoline Cars</h4>
                 <div class="btn-group btn-group-md" role="group" aria-label="...">
-                    <a href="rect.html" class="btn btn-default" role="button">Prev</a>
+                    <a href="index.html" class="btn btn-default" role="button">Prev</a>
                     <a href="trend.html" class="btn btn-default" role="button">Next</a>
                 </div>
             </div>
         </div>
     </div>
 </header>
-<svg width=90% height=90%>
+<svg width=800 height=800>
 </svg>
 <div id="div_template"></div>
 <script>
   const annotations = [
   {
     note: {
-      label: "Trend stays the same with Diesel Cars",
+      label: "More cylinders reduces MPG",
       title: "MPG reduces"
     },
     connector: {
@@ -40,11 +40,11 @@
     dx: 100
   }
 ]
-var x = d3.scaleBand().domain([4,6]).range([0,80%]);
-var y = d3.scaleLinear().domain([0,42]).range([80%,0])
-var xs = d3.scaleBand().domain([0,1]).range([0,80%]);
-var ys = d3.scaleLinear().domain([0,42]).range([80%,0]);
-var hs = d3.scaleLinear().domain([0,42]).range([0,80%]);
+var x = d3.scaleBand().domain([2,3,4,6,8,10,12]).range([0,600]);
+var y = d3.scaleLinear().domain([0,42]).range([600,0])
+var xs = d3.scaleBand().domain([0,1,2,3,4,5,6]).range([0,600]);
+var ys = d3.scaleLinear().domain([0,42]).range([600,0]);
+var hs = d3.scaleLinear().domain([0,42]).range([0,600]);
 var Tooltip = d3.select("#div_template")
     .append("div")
     .style("opacity", 0)
@@ -76,13 +76,13 @@ var Tooltip = d3.select("#div_template")
       .style("stroke", "none")
       .style("opacity", 0.8)
   }
-d3.select("svg").attr("width",90%) 
-.attr("height",90%).append("g")
+d3.select("svg").attr("width",800) 
+.attr("height",800).append("g")
 .attr("transform","translate(50,50)")
-.selectAll('rect').data([25,22]).enter().append('rect')
+.selectAll('rect').data([36,31,24,19,15,13,12]).enter().append('rect')
 .attr('x',function(d,i) {return xs(i);})
 .attr('y',function(d,i) {return ys(d);})
-.attr('width', 40%)
+.attr('width', 85.71)
 .attr('height',function(d,i) {return hs(d);})
 .on("mouseover", mouseover)
 .on("mousemove", mousemove)
