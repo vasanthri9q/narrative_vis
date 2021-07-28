@@ -1,0 +1,95 @@
+<html>
+<script src='https://d3js.org/d3.v5.min.js'></script>
+<script src="https://rawgit.com/susielu/d3-annotation/master/d3-annotation.min.js"></script>
+<style> rect {fill: lightblue; stroke: black; }</style>
+<body>
+<header>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">
+                <h1 class="logo">Dashboard Assignment</h1>
+                <h4>Comparing Number of Cylinders vs City MPG for Disel Cars</h4>
+                <div class="btn-group btn-group-md" role="group" aria-label="...">
+                    <a href="rect.html" class="btn btn-default" role="button">Prev</a>
+                    <a href="trend.html" class="btn btn-default" role="button">Next</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<svg width=90% height=90%>
+</svg>
+<div id="div_template"></div>
+<script>
+  const annotations = [
+  {
+    note: {
+      label: "Trend stays the same with Diesel Cars",
+      title: "MPG reduces"
+    },
+    connector: {
+      end: "dot",        // Can be none, or arrow or dot
+      type: "line",      // ?? don't know what it does
+      lineType : "vertical",    // ?? don't know what it does
+      endScale: 10     // dot size
+    },
+    color: ["grey"],
+    x: 540,
+    y: 430,
+    dy: 100,
+    dx: 100
+  }
+]
+var x = d3.scaleBand().domain([4,6]).range([0,80%]);
+var y = d3.scaleLinear().domain([0,42]).range([80%,0])
+var xs = d3.scaleBand().domain([0,1]).range([0,80%]);
+var ys = d3.scaleLinear().domain([0,42]).range([80%,0]);
+var hs = d3.scaleLinear().domain([0,42]).range([0,80%]);
+var Tooltip = d3.select("#div_template")
+    .append("div")
+    .style("opacity", 0)
+    .attr("class", "tooltip")
+    .style("background-color", "white")
+    .style("border", "solid")
+    .style("border-width", "2px")
+    .style("border-radius", "5px")
+    .style("padding", "5px")
+
+  // Three function that change the tooltip when user hover / move / leave a cell
+  var mouseover = function(d) {
+    Tooltip
+      .style("opacity", 1)
+    d3.select(this)
+      .style("stroke", "black")
+      .style("opacity", 1)
+  }
+  var mousemove = function(d) {
+    Tooltip
+      .html("Cylinders:"+i   +"MPG:"+d)
+      .style("left", (d3.mouse(this)[0]+70) + "px")
+      .style("top", (d3.mouse(this)[1]) + "px")
+  }
+  var mouseleave = function(d) {
+    Tooltip
+      .style("opacity", 0)
+    d3.select(this)
+      .style("stroke", "none")
+      .style("opacity", 0.8)
+  }
+d3.select("svg").attr("width",90%) 
+.attr("height",90%).append("g")
+.attr("transform","translate(50,50)")
+.selectAll('rect').data([25,22]).enter().append('rect')
+.attr('x',function(d,i) {return xs(i);})
+.attr('y',function(d,i) {return ys(d);})
+.attr('width', 40%)
+.attr('height',function(d,i) {return hs(d);})
+.on("mouseover", mouseover)
+.on("mousemove", mousemove)
+.on("mouseleave", mouseleave)
+d3.select("svg").append("g").attr("transform","translate(50,50)").call(d3.axisLeft(y))
+d3.select("svg").append("g").attr("transform","translate(50,650)").call(d3.axisBottom(x))
+d3.select("svg").append("g").attr("transform","translate(50,50)").call(d3.annotation().annotations(annotations))
+</script>
+</body>
+</html>
