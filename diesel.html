@@ -35,7 +35,7 @@
     },
     color: ["grey"],
     x: 540,
-    y: 230,
+    y: 330,
     dy: 100,
     dx: 100
   }
@@ -65,7 +65,7 @@ var Tooltip = d3.select("#div_template")
   }
   var mousemove = function(d) {
     Tooltip
-      .html("Cylinders:"+i   +"MPG:"+d)
+      .html("MPG:"+d)
       .style("left", (d3.mouse(this)[0]+70) + "px")
       .style("top", (d3.mouse(this)[1]) + "px")
   }
@@ -82,7 +82,7 @@ d3.select("svg").attr("width",800)
 .selectAll('rect').data([25,22]).enter().append('rect')
 .attr('x',function(d,i) {return xs(i);})
 .attr('y',function(d,i) {return ys(d);})
-.attr('width', 100)
+.attr('width', 300)
 .attr('height',function(d,i) {return hs(d);})
 .on("mouseover", mouseover)
 .on("mousemove", mousemove)
