@@ -8,10 +8,9 @@
         <div class="row">
             <div class="col-md-2">
                 <h1 class="logo">Dashboard Assignment</h1>
-                <h4>Comparing Number of Cylinders vs City MPG for Diesel Cars</h4>
+                <h4>Comparing Gasoline vs Diesel vs Electric Cars</h4>
                 <div class="btn-group btn-group-md" role="group" aria-label="...">
-                    <a href="rect.html" class="btn btn-default" role="button">Prev</a>
-                    <a href="compare.html" class="btn btn-default" role="button">Next</a>
+                    <a href="diesel.html" class="btn btn-default" role="button">Prev</a>
                 </div>
             </div>
         </div>
@@ -24,8 +23,8 @@
   const annotations = [
   {
     note: {
-      label: "Trend stays the same with Diesel Cars",
-      title: "MPG reduces"
+      label: "Comparing fuel efficiency",
+      title: "Electric most efficient"
     },
     connector: {
       end: "dot",        // Can be none, or arrow or dot
@@ -40,11 +39,11 @@
     dx: 100
   }
 ]
-var x = d3.scaleBand().domain([4,6]).range([0,600]);
-var y = d3.scaleLinear().domain([0,42]).range([600,0])
-var xs = d3.scaleBand().domain([0,1]).range([0,600]);
-var ys = d3.scaleLinear().domain([0,42]).range([600,0]);
-var hs = d3.scaleLinear().domain([0,42]).range([0,600]);
+var x = d3.scaleBand().domain(['GS-HW','GS-CT','DL-HW','DL-CT','EL-HW','EL-CT']).range([0,600]);
+var y = d3.scaleLinear().domain([0,130]).range([600,0])
+var xs = d3.scaleBand().domain([0,1,2,3,4,5]).range([0,600]);
+var ys = d3.scaleLinear().domain([0,130]).range([600,0]);
+var hs = d3.scaleLinear().domain([0,130]).range([0,600]);
 var Tooltip = d3.select("#div_template")
     .append("div")
     .style("opacity", 0)
@@ -79,10 +78,10 @@ var Tooltip = d3.select("#div_template")
 d3.select("svg").attr("width",800) 
 .attr("height",800).append("g")
 .attr("transform","translate(50,50)")
-.selectAll('rect').data([25,22]).enter().append('rect')
+.selectAll('rect').data([27,20,33,25,102,119]).enter().append('rect')
 .attr('x',function(d,i) {return xs(i);})
 .attr('y',function(d,i) {return ys(d);})
-.attr('width', 300)
+.attr('width', 100)
 .attr('height',function(d,i) {return hs(d);})
 .on("mouseover", mouseover)
 .on("mousemove", mousemove)
